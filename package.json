@@ -1,0 +1,9 @@
+{
+  "name": "MagMisc",
+  "version": "1.0.0",
+  "description": "Miscellaneous functions",
+  "main": "index.js",
+  "repository": "git@github.com:RavenDuffy/MagMisc.git",
+  "author": "RavenDuffy <40807825+RavenDuffy@users.noreply.github.com>",
+  "license": "MIT"
+}
