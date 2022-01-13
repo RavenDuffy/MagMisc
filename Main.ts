@@ -63,3 +63,19 @@ export const localeDateString = (
 
   return `${year}-${month}-${day}T${hours}:${mins}:${secs}${`${timezone}`}`
 }
+
+export const formatRenderString =
+  (delimiter: string = ", ") =>
+  (...params: (string | number | Date | null | undefined)[]): string => {
+    let renderString = ""
+
+    for (const p of params) {
+      if (p !== undefined && p !== null)
+        renderString += `${p.toString()}${delimiter}`
+    }
+
+    return renderString.slice(
+      0,
+      delimiter.length > 0 ? -delimiter.length : renderString.length
+    )
+  }
