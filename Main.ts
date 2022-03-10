@@ -79,3 +79,27 @@ export const formatRenderString =
       delimiter.length > 0 ? -delimiter.length : renderString.length
     )
   }
+
+export const DecimalFormatting = (
+  decimal: number | string | null,
+  optionalArgs: { useDashForNulls?: boolean; numberOfDecimals?: number } = {
+    useDashForNulls: false,
+    numberOfDecimals: 3,
+  }
+): string | undefined => {
+  if (decimal === undefined) return
+  if (decimal === null) return !optionalArgs?.useDashForNulls ? "0" : "-"
+
+  if (
+    Number.isNaN(parseFloat(decimal.toString())) ||
+    !Number.isFinite(parseFloat(decimal.toString()))
+  )
+    throw new Error("This function can only process numbers")
+
+  return parseFloat(
+    Number(decimal).toFixed(optionalArgs.numberOfDecimals)
+  ).toLocaleString(
+    /** i18n.language || **/
+    window.navigator.languages[0] || window.navigator.language
+  )
+}
