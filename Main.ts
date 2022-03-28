@@ -82,24 +82,20 @@ export const formatRenderString =
 
 export const DecimalFormatting = (
   decimal: number | string | null,
-  optionalArgs: { useDashForNulls?: boolean; numberOfDecimals?: number } = {
-    useDashForNulls: false,
-    numberOfDecimals: 3,
-  }
+  optionalArgs: { useDashForNulls?: boolean; numberOfDecimals?: number } = {}
 ): string | undefined => {
+  const { useDashForNulls = false, numberOfDecimals = 3 } = optionalArgs
   if (decimal === undefined) return
-  if (decimal === null) return !optionalArgs?.useDashForNulls ? "0" : "-"
-
+  if (decimal === null) return !useDashForNulls ? "0" : "-"
   if (
     Number.isNaN(parseFloat(decimal.toString())) ||
     !Number.isFinite(parseFloat(decimal.toString()))
   )
     throw new Error("This function can only process numbers")
-
   return parseFloat(
-    Number(decimal).toFixed(optionalArgs.numberOfDecimals)
+    Number(decimal).toFixed(numberOfDecimals || 3)
   ).toLocaleString(
-    /** i18n.language || **/
+    /*i18n.language ||*/
     window.navigator.languages[0] || window.navigator.language
   )
 }
