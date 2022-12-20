@@ -99,3 +99,22 @@ export const DecimalFormatting = (
     window.navigator.languages[0] || window.navigator.language
   )
 }
+
+// need to convert to ts
+export const chunkArray = (array, itemsPerChunk) => {
+  if (array.length <= itemsPerChunk) return [array];
+
+  const chunkedArray = array.reduce((currentArray, item, index) => {
+    const currentArrayClone = Array.isArray(currentArray)
+      ? currentArray.slice()
+      : [currentArray];
+    const chunkIndex = Math.floor(index / itemsPerChunk);
+    currentArrayClone[chunkIndex] = [].concat(
+      currentArrayClone[chunkIndex] || [],
+      item
+    );
+
+    return currentArrayClone;
+  });
+  return chunkedArray;
+};
